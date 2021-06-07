@@ -64,7 +64,7 @@ tag_specification:
   name: "4.7"
   namespace: ocp
 tests:
-- as: e2e-tests
+- as: e2e-tests-post
   cron: 2 7 * * *
   steps:
     allow_best_effort_post_steps: true
