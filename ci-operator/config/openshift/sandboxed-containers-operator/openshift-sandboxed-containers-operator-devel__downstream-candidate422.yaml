@@ -119,7 +119,7 @@ tests:
     report_template: '{{if eq .Status.State "success"}}SUCCESS{{else}}ERROR{{end}}
       {{trimPrefix "periodic-ci-openshift-sandboxed-containers-operator-" .Spec.Job}}
       <{{.Status.URL}}|View logs>'
-  restrict_network_access: false
+  restrict_network_access: true
   steps:
     cluster_profile: azure-qe
     env:
@@ -129,19 +129,22 @@ tests:
       CUSTOM_AZURE_REGION: westus
       ENABLE_MUST_GATHER: "false"
       ENABLEPEERPODS: "true"
-      INSTALL_KATA_RPM: "false"
-      KATA_RPM_VERSION: 3.31.0-2.rhaos4.22.el9
+      INSTALL_KATA_RPM: "true"
+      KATA_RPM_BUILD_TASK: "72047990"
+      KATA_RPM_VERSION: 4.2.0-1.rhaos4.22.el9
       MUST_GATHER_IMAGE: registry.redhat.io/openshift-sandboxed-containers/osc-must-gather-rhel9:latest
       MUST_GATHER_ON_FAILURE_ONLY: "false"
       OSC_INSTALL: "true"
       RUNTIMECLASS: kata-remote
-      SLEEP_DURATION: 0h
+      SLEEP_DURATION: 6h
       TEST_FILTERS: ~DisconnectedOnly&;~Disruptive&;~C00133&
       TEST_RELEASE_TYPE: Pre-GA
       TEST_SCENARIOS: sig-kata.*run and verify cosigned pod
       TEST_TIMEOUT: "90"
       TESTS_CAA_ENABLE: "true"
       TESTS_CAA_PROFILE: coco
+      TESTS_CAA_RUNNER_REPO: https://github.com/wainersm/sandboxed-containers-operator
+      TESTS_CAA_RUNNER_REPO_REF: runner_caa_tests-coco-1
       TRUSTEE_CATALOG_SOURCE_IMAGE: quay.io/redhat-user-workloads/ose-osc-tenant/trustee-test-fbc:latest
       TRUSTEE_INSTALL: "true"
       WORKLOAD_TO_TEST: coco
